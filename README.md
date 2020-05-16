@@ -1,21 +1,21 @@
-# react-ez-form
+# react-awesome-form
 
 > React form component with validations
 
-[![NPM](https://img.shields.io/npm/v/react-ez-form.svg)](https://www.npmjs.com/package/react-ez-form) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-ez-form.svg)](https://www.npmjs.com/package/react-awesome-form) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-ez-form
+npm install --save react-awesome-form
 ```
 
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import { Form, Input } from 'react-ez-form'
+import { Form, Input } from 'react-awesome-form';
 
 const MyFunction = () => {
   return (
@@ -32,8 +32,8 @@ const MyFunction = () => {
         onChange={handleChange}
       />
     </Form>
-  )
-}
+  );
+};
 ```
 
 ## License

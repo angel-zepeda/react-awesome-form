@@ -1,10 +1,10 @@
 {
-  "name": "react-ez-form",
+  "name": "react-awesome-form",
   "version": "1.0.0",
   "description": "React form component with validations",
   "author": "angel-zepeda",
   "license": "MIT",
-  "repository": "angel-zepeda/react-ez-form",
+  "repository": "angel-zepeda/react-awesome-form",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
