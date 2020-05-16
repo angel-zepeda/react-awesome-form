@@ -1,10 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-import { FormProps, InputProps } from './interfaces'
+import { FormProps, InputProps } from './interfaces';
 
-const Form: React.FunctionComponent<FormProps> = ({ formStyle, children }) => {
-  return <form style={formStyle}>{children}</form>
-}
+const validateValue = (value: string, type: string) => {
+  const emojiRegExp = /\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/;
+  const emailRegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+  switch (type) {
+    case 'text':
+      return emojiRegExp.test(value);
+    case 'email':
+      return emailRegExp.test(value);
+    default:
+      return;
+  }
+};
+
+const Form: React.FunctionComponent<FormProps> = (props) => {
+  return <form {...props}>{props.children}</form>;
+};
 
 const Input: React.FunctionComponent<InputProps> = ({
   autoComplete,
@@ -18,11 +31,9 @@ const Input: React.FunctionComponent<InputProps> = ({
   value,
   errorLabelStyle
 }) => {
-  const emailRegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
-  const emojiRegExp = /\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/
-  const [errorLabel, setErrorLabel] = useState<string>('')
+  const [errorLabel, setErrorLabel] = useState<string>('');
   return (
-    <>
+    <div>
       <div style={errorLabelStyle}>{minLength ? errorLabel : ''}</div>
       <input
         name={name}
@@ -36,37 +47,39 @@ const Input: React.FunctionComponent<InputProps> = ({
           switch (type) {
             case 'text':
               if (minLength) {
-                const minLen = parseInt(minLength)
+                const minLen = parseInt(minLength);
                 if (value.toString().length < minLen) {
-                  setErrorLabel(`El ${name} debe ser mayor a ${minLength}`)
+                  setErrorLabel(`El ${name} debe ser mayor a ${minLength}`);
                 } else {
-                  emojiRegExp.test(value.toString())
+                  validateValue(value.toString(), 'text')
                     ? setErrorLabel(`El formato de ${name} es incorrecto`)
-                    : setErrorLabel('')
+                    : setErrorLabel('');
                 }
-              }
-              break
-            case 'email':
-              if (!emailRegExp.test(value.toString())) {
-                setErrorLabel(`El formato de ${name} es incorrecto`)
               } else {
-                setErrorLabel('')
+                validateValue(value.toString(), 'text')
+                  ? setErrorLabel(`El formato de ${name} es incorrecto`)
+                  : setErrorLabel('');
               }
-              break
+              break;
+            case 'email':
+              !validateValue(value.toString(), 'email')
+                ? setErrorLabel(`El formato de ${name} es incorrecto`)
+                : setErrorLabel('');
+              break;
             case 'number':
               if (minLength) {
-                const minLen = parseInt(minLength)
+                const minLen = parseInt(minLength);
                 if (value < minLen) {
-                  setErrorLabel(`El ${name} debe ser mayor a ${minLength}`)
+                  setErrorLabel(`El ${name} debe ser mayor a ${minLength}`);
                 } else {
-                  setErrorLabel('')
+                  setErrorLabel('');
                 }
               }
           }
         }}
       />
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export { Form, Input }
+export { Form, Input };
