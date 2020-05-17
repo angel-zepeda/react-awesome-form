@@ -19,58 +19,46 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
   return <form {...props}>{props.children}</form>;
 };
 
-const Input: React.FunctionComponent<InputProps> = ({
-  autoComplete,
-  name,
-  type,
-  inputStyle,
-  placeholder,
-  onChange,
-  minLength,
-  maxLength,
-  value,
-  errorLabelStyle
-}) => {
+const Input: React.FunctionComponent<InputProps> = (props) => {
   const [errorLabel, setErrorLabel] = useState<string>('');
+
   return (
     <div>
-      <div style={errorLabelStyle}>{minLength ? errorLabel : ''}</div>
+      <div style={props.errorLabelStyle}>{errorLabel}</div>
       <input
-        name={name}
-        type={type}
-        autoComplete={autoComplete !== undefined ? autoComplete : 'on'}
-        style={inputStyle}
-        placeholder={placeholder}
-        onChange={onChange}
-        maxLength={maxLength !== undefined ? parseInt(maxLength) : 524288}
+        {...props}
         onBlur={() => {
-          switch (type) {
+          switch (props.type) {
             case 'text':
-              if (minLength) {
-                const minLen = parseInt(minLength);
-                if (value.toString().length < minLen) {
-                  setErrorLabel(`El ${name} debe ser mayor a ${minLength}`);
+              if (props.minLength) {
+                const minLen = props.minLength;
+                if (props.value.toString().length < minLen) {
+                  setErrorLabel(
+                    `El ${props.name} debe ser mayor a ${props.minLength}`
+                  );
                 } else {
-                  validateValue(value.toString(), 'text')
-                    ? setErrorLabel(`El formato de ${name} es incorrecto`)
+                  validateValue(props.value.toString(), 'text')
+                    ? setErrorLabel(`El formato de ${props.name} es incorrecto`)
                     : setErrorLabel('');
                 }
               } else {
-                validateValue(value.toString(), 'text')
-                  ? setErrorLabel(`El formato de ${name} es incorrecto`)
+                validateValue(props.value.toString(), 'text')
+                  ? setErrorLabel(`El formato de ${props.name} es incorrecto`)
                   : setErrorLabel('');
               }
               break;
             case 'email':
-              !validateValue(value.toString(), 'email')
-                ? setErrorLabel(`El formato de ${name} es incorrecto`)
-                : setErrorLabel('');
+              validateValue(props.value.toString(), 'email')
+                ? setErrorLabel('')
+                : setErrorLabel(`El formato de ${props.name} es incorrecto`);
               break;
             case 'number':
-              if (minLength) {
-                const minLen = parseInt(minLength);
-                if (value < minLen) {
-                  setErrorLabel(`El ${name} debe ser mayor a ${minLength}`);
+              if (props.minLength) {
+                const minLen = props.minLength;
+                if (props.value < minLen) {
+                  setErrorLabel(
+                    `El ${name} debe ser mayor a ${props.minLength}`
+                  );
                 } else {
                   setErrorLabel('');
                 }
