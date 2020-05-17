@@ -1,13 +1,13 @@
 {
   "name": "react-ez-form-example",
-  "homepage": "https://angel-zepeda.github.io/react-ez-form",
+  "homepage": "https://angel-zepeda.github.io/react-awesome-form",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "react-ez-form": "link:.."
+    "react-awesome-form": "link:.."
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",

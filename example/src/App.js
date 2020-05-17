@@ -1,10 +1,39 @@
-import React from 'react'
+import React from 'react';
 
-import { ExampleComponent } from 'react-ez-form'
-import 'react-ez-form/dist/index.css'
+import { Form, Input } from 'react-awesome-form';
+import 'react-awesome-form/dist/index.css';
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
-}
+  const [user, setUser] = React.useState({
+    name: '',
+    email: ''
+  });
 
-export default App
+  const handleChange = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
+  return (
+    <Form>
+      <Input
+        style={{ border: '2px solid red' }}
+        type='text'
+        placeholder='Nombre'
+        name='name'
+        minLength={2}
+        value={user.name}
+        onChange={handleChange}
+      />
+
+      <Input
+        type='email'
+        placeholder='email'
+        name='email'
+        value={user.email}
+        onChange={handleChange}
+      />
+    </Form>
+  );
+};
+
+export default App;
