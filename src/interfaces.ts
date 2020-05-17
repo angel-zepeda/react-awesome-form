@@ -10,13 +10,13 @@ export interface FormProps {
 export interface InputProps {
   name: string;
   type: 'text' | 'email' | 'number' | 'tel';
-  value: string | number | object;
+  value: string | number | string[];
   className?: string;
-  placeholder: string;
-  minLength?: string;
-  maxLength?: string;
+  placeholder?: string;
+  minLength?: number | undefined;
+  maxLength?: number | undefined;
   autoComplete?: 'on' | 'off';
-  inputStyle?: {
+  style?: {
     [key: string]: string;
   };
   errorLabelStyle?: {
